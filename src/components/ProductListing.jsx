@@ -1,134 +1,65 @@
+import ProductCard from "./ProductCard.jsx"
+import ProductDetail from "./ProductDetail.jsx"
+import products from "./data/Products"
 import { useState } from "react"
-import ProductCard from "./productCard.jsx"
-import ProductDetail from "./productDetail.jsx"
-import products from "./data/Products.js" 
 
-export default function ProductListing() {
-  const [selectedProduct, setSelectedProduct] = useState(null)
+const categorias = [
+  "Herramientas",
+  "Plomeria",
+  "Herramientas Electricas",
+  "Buloneria",
+  "Pinturas",
+  "Ferreteria",
+]
 
-  const handleProductClick = (product) => {
-    console.log("Producto seleccionado:", product) 
-    setSelectedProduct(product)
+const ProductListing = ({ searchTerm }) => {
+  const [productoSeleccionado, setProductoSeleccionado] = useState(null)
+
+  const buscarCoincidencias = (p) => {
+    if (!searchTerm) return true
+    return p.name.toLowerCase().includes(searchTerm.toLowerCase())
   }
-
-  const handleCloseDetail = () => {
-    console.log("Cerrando detalle del producto.") 
-    setSelectedProduct(null)
-  }
-
-const pinturas = products.filter(product => product.category === "pintura")
-const herramientas = products.filter(product => product.category === "herramienta")
 
   return (
-<section id="productos" className="products">
-  <div className="section-header">
-    <div className="container">
-      <div className="categories">
-    <h3>Nuestros Productos</h3>
-     <p>Explora nuestra amplia gama de productos organizados por categorías</p>
-    </div>
-    </div>
-    <h1>Pinturas</h1>
-  </div>
-  <div className="products-grid">
-    {pinturas.map(product => (
-      <ProductCard key={product.id} product={product} onSelectProduct={handleProductClick} />
-    ))}
-    {pinturas.map(product => (
-      <ProductCard key={product.id} product={product} onSelectProduct={handleProductClick} />
-    ))}
-  </div>
+    <section id="products" className="products">
+      <div className="container">
+        <div className="categories">
+          <div className="section-header">
+            <h3>Conocé nuestros productos en descuento</h3>
+          </div>
+        </div>
+         </div>
 
-  <div className="section-header">
-    <h1>Accesorios para Pintar</h1>
-  </div>
-  <div className="products-grid">
-    {herramientas.map(product => (
-      <ProductCard key={product.id} product={product} onSelectProduct={handleProductClick} />
-    ))}
-     {pinturas.map(product => (
-      <ProductCard key={product.id} product={product} onSelectProduct={handleProductClick} />
-    ))}
-  </div>
+        {categorias.map((cat) => {
+          const productosFiltrados = products
+            .filter((p) => p.category === cat)
+            .filter(buscarCoincidencias)
 
-  <div className="section-header">
-    <h1>Herramientas Electricas</h1>
-  </div>
-  <div className="products-grid">
-    {herramientas.map(product => (
-      <ProductCard key={product.id} product={product} onSelectProduct={handleProductClick} />
-    ))}
-     {pinturas.map(product => (
-      <ProductCard key={product.id} product={product} onSelectProduct={handleProductClick} />
-    ))}
-  </div>
+          if (productosFiltrados.length === 0) return null
 
-  <div className="section-header">
-    <h1>Jardineria</h1>
-  </div>
-  <div className="products-grid">
-    {herramientas.map(product => (
-      <ProductCard key={product.id} product={product} onSelectProduct={handleProductClick} />
-    ))}
-     {pinturas.map(product => (
-      <ProductCard key={product.id} product={product} onSelectProduct={handleProductClick} />
-    ))}
-  </div>
+          return (
+            <div key={cat} className="product-category-section">
+              <div className="products-gridd">
+                {productosFiltrados.map((prod) => (
+                  <ProductCard
+                    key={prod.id}
+                    product={prod}
+                    onSelectProduct={setProductoSeleccionado}
+                  />
+                ))}
+              </div>
+            </div>
+          )
+        })}
 
-  <div className="section-header">
-    <h1>Ferreteria</h1>
-  </div>
-  <div className="products-grid">
-    {herramientas.map(product => (
-      <ProductCard key={product.id} product={product} onSelectProduct={handleProductClick} />
-    ))}
-     {pinturas.map(product => (
-      <ProductCard key={product.id} product={product} onSelectProduct={handleProductClick} />
-    ))}
-  </div>
-
-  <div className="section-header">
-    <h1>Fijaciones</h1>
-  </div>
-  <div className="products-grid">
-    {herramientas.map(product => (
-      <ProductCard key={product.id} product={product} onSelectProduct={handleProductClick} />
-    ))}
-     {pinturas.map(product => (
-      <ProductCard key={product.id} product={product} onSelectProduct={handleProductClick} />
-    ))}
-  </div>
-
-  <div className="section-header">
-    <h1>Adhesivos/Selladores</h1>
-  </div>
-  <div className="products-grid">
-    {herramientas.map(product => (
-      <ProductCard key={product.id} product={product} onSelectProduct={handleProductClick} />
-    ))}
-     {pinturas.map(product => (
-      <ProductCard key={product.id} product={product} onSelectProduct={handleProductClick} />
-    ))}
-  </div>
-
-  <div className="section-header">
-    <h1>Herramientas Manuales</h1>
-  </div>
-  <div className="products-grid">
-    {herramientas.map(product => (
-      <ProductCard key={product.id} product={product} onSelectProduct={handleProductClick} />
-    ))}
-     {pinturas.map(product => (
-      <ProductCard key={product.id} product={product} onSelectProduct={handleProductClick} />
-    ))}
-  </div>
-
-  {selectedProduct && (
-    <ProductDetail product={selectedProduct} onClose={handleCloseDetail} />
-  )}
-</section>
-
+        {productoSeleccionado && (
+          <ProductDetail
+            product={productoSeleccionado}
+            onClose={() => setProductoSeleccionado(null)}
+          />
+        )}
+     
+    </section>
   )
 }
-
-
+export default ProductListing

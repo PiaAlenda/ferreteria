@@ -4,15 +4,15 @@ const Categories = () => {
   const navigate = useNavigate()
 
   const categorias = [
-    { slug: "herramientas-electricas", icon: "fa-drill", titulo: "Herramientas Eléctricas" },
+    { slug: "herramientas-electricas", icon: "fa-hammer", titulo: "Herramientas Eléctricas" },
     { slug: "plomeria", icon: "fa-hammer", titulo: "Plomería" },
     { slug: "jardineria-e-insecticidas", icon: "fa-wrench", titulo: "Jardinería e Insecticidas" },
     { slug: "quimicos-adhesivos-lubricantes", icon: "fa-screwdriver", titulo: "Químicos-Adhesivos-Lubricantes" },
-    { slug: "sogas-y-tejidos", icon: "fa-drill", titulo: "Sogas & Tejidos" },
+    { slug: "sogas-y-tejidos", icon: "fa-hammer", titulo: "Sogas & Tejidos" },
     { slug: "herramienta", icon: "fa-hammer", titulo: "Herramientas" },
     { slug: "herrajes-y-hogar", icon: "fa-wrench", titulo: "Herrajes & Hogar" },
     { slug: "buloneria", icon: "fa-screwdriver", titulo: "Bulonería" },
-    { slug: "pintura", icon: "fa-drill", titulo: "Pinturas" },
+    { slug: "pintura", icon: "fa-hammer", titulo: "Pinturas" },
     { slug: "ferreteria", icon: "fa-hammer", titulo: "Ferretería" },
     { slug: "materiales-para-construccion", icon: "fa-wrench", titulo: "Materiales para Construcción" },
     { slug: "seguridad", icon: "fa-screwdriver", titulo: "Seguridad" },
@@ -25,12 +25,13 @@ const Categories = () => {
   }
 
   return (
-    <section className="categories">
+    <section id="categories" className="categories">
       <div className="container">
         <div className="section-header">
-          <h3>Nuestras Categorías</h3>
+          <h3>Mirá nuestras Categorías</h3>
           <p>Explora nuestra amplia gama de productos organizados por categorías</p>
         </div>
+         </div>
         <div className="categories-grid">
           {categorias.map((cat, idx) => (
             <div
@@ -46,7 +47,7 @@ const Categories = () => {
             </div>
           ))}
         </div>
-      </div>
+     
     </section>
   )
 }

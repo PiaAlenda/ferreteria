@@ -1,12 +1,13 @@
-import { useParams } from "react-router-dom"
-import products from "./data/Products.js"
-
+import { useParams } from "react-router-dom";
+import products from "./data/products";
 const CategoryPage = () => {
   const { slug } = useParams()
 
-  // Filtra productos que coincidan con la categoría del URL
+  const normalize = (str) =>
+    str.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "")
+
   const productosFiltrados = products.filter(
-    (producto) => producto.category === slug
+    (producto) => normalize(producto.category) === slug
   )
 
   return (

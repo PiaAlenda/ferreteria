@@ -6,7 +6,8 @@ import ProductListing from "./components/ProductListing"
 import LocationSection from "./components/LocationSection"
 import CTA from "./components/CTA"
 import Footer from "./components/Footer"
-import CategoryPage from "./components/CategoryPage" 
+import CategoryPage from "./components/CategoryPage"
+import SearchResultPage from "./components/SearchResultPage" // <-- Importa acá
 import "./App.css"
 
 function App() {
@@ -14,7 +15,6 @@ function App() {
     <Router>
       <Header />
       <Routes>
-        {/* Página principal */}
         <Route
           path="/"
           element={
@@ -27,8 +27,8 @@ function App() {
             </>
           }
         />
-        {/* Página por categoría dinámica */}
-        <Route path="/categoria/:slug" element={<CategoryPage />} /> {/* 🔥 Ruta dinámica */}
+        <Route path="/categoria/:slug" element={<CategoryPage />} />
+        <Route path="/buscar/:termino" element={<SearchResultPage />} />
       </Routes>
       <Footer />
     </Router>
@@ -36,3 +36,5 @@ function App() {
 }
 
 export default App
+
+
