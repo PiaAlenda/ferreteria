@@ -1,6 +1,6 @@
 import ProductCard from "./ProductCard.jsx"
 import ProductDetail from "./ProductDetail.jsx"
-import products from "./data/Products"
+import products from "./data/products"
 import { useState } from "react"
 
 const categorias = [
