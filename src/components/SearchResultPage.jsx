@@ -1,19 +1,19 @@
-import React, { useState } from "react"
-import { useParams, useNavigate } from "react-router-dom"
-import products from "./data/products"
-import ProductDetail from "./ProductDetail" 
+import React, { useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import products from "./data/products";
+import ProductDetail from "./ProductDetail";
 
 const SearchResultPage = () => {
-  const { termino } = useParams()
-  const navigate = useNavigate()
+  const { termino } = useParams();
+  const navigate = useNavigate();
 
-  const [selectedProduct, setSelectedProduct] = useState(null) 
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
-  const searchTerm = termino.toLowerCase().trim()
+  const searchTerm = termino.toLowerCase().trim();
   const resultados = products.filter((product) =>
     product.name.toLowerCase().includes(searchTerm)
-  )
-  const handleCloseDetail = () => setSelectedProduct(null)
+  );
+  const handleCloseDetail = () => setSelectedProduct(null);
 
   return (
     <div className="search-results">
@@ -51,13 +51,7 @@ const SearchResultPage = () => {
         <ProductDetail product={selectedProduct} onClose={handleCloseDetail} />
       )}
     </div>
-  )
-}
+  );
+};
 
-export default SearchResultPage
-
-
-
-
-
-
+export default SearchResultPage;

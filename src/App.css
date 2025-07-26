@@ -606,7 +606,7 @@ body {
 }
 
 /* CATEGORIES */
-*/.categories {  
+.categories {  
   padding: 4rem 0;
   background-color: var(--white);
 }
