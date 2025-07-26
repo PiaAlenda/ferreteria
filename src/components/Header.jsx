@@ -1,25 +1,27 @@
-"use client" // Mantener si este componente se renderiza en el cliente en un entorno SSR/SSG como Next.js, aunque uses react-router-dom. Si es un SPA puro, no es estrictamente necesario.
-
+"use client"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 
 const Header = () => {
   const [searchTerm, setSearchTerm] = useState("")
+  const [isScrolled, setIsScrolled] = useState(false)
   const navigate = useNavigate()
 
   useEffect(() => {
     const handleScroll = () => {
+      const scrolled = window.scrollY > 50
+      setIsScrolled(scrolled)
+
       const header = document.querySelector(".header")
       if (header) {
-        if (window.scrollY > 100) {
-          header.style.background = "rgba(255, 255, 255, 0.95)"
-          header.style.backdropFilter = "blur(10px)"
+        if (scrolled) {
+          header.classList.add("scrolled")
         } else {
-          header.style.background = "var(--white)"
-          header.style.backdropFilter = "none"
+          header.classList.remove("scrolled")
         }
       }
     }
+
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
@@ -34,9 +36,39 @@ const Header = () => {
   }
 
   return (
-    <header className="header">
+    <header className={`header ${isScrolled ? "scrolled" : ""}`}>
+      <div className="container header-content-wrapper">
+        <div className="header-top-row">
+          <div className="nav-brand">
+            <img
+              src="/src/assets/logo-ferreteria.png"
+              alt="Ferretería Miguel Logo"
+              onError={(e) => {
+                e.target.src = "/src/assets/Logo ferretería moderno ilustrativo negro con amarillo .png"
+              }}
+            />
+            <h1>Ferretería Miguel</h1>
+          </div>
 
-     <div className="nav-search">
+          <nav>
+            <ul className="nav-links">
+              <li>
+                <a href="/">Inicio</a>
+              </li>
+              <li>
+                <a href="#categories">Categorías</a>
+              </li>
+              <li>
+                <a href="#products">Productos</a>
+              </li>
+              <li>
+                <a href="#ubicacion">Contacto</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+
+        <div className="nav-search">
           <form className="search-form" onSubmit={handleSubmit}>
             <input
               type="text"
@@ -65,25 +97,10 @@ const Header = () => {
             </button>
           </form>
         </div>
-
-    <div className="container header-content-wrapper">
-          <ul className="nav-links">
-            <li>
-              <a href="/">Inicio</a>
-            </li>
-            <li>
-              <a href="#categories">Categorías</a>
-            </li>
-            <li>
-              <a href="#products">Productos</a>
-            </li>
-            <li>
-              <a href="#ubicacion">Contacto</a>
-            </li>
-          </ul>
       </div>
     </header>
   )
 }
 
 export default Header
+

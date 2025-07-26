@@ -44,7 +44,7 @@ export default function ProductCard({ product, onSelectProduct }) {
           className="btn-product"
           onClick={(e) => e.stopPropagation()}
         >
-          Comprar por WhatsApp
+          Comprar
         </a>
       </div>
     </div>
